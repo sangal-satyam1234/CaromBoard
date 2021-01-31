@@ -18,6 +18,7 @@ object Parser {
       case "B" => Coin.Black
       case "R" => Coin.Red
       case "SS" => Coin.Striker
+      case _ => Coin.None
     }
   }
 
@@ -32,13 +33,17 @@ object Parser {
       case "D" =>
         val coinType: Coin = parseToCoin(str(1))
         new DefunctStrike(coinType)
+      case _ => NoStrike
     }
   }
 
   implicit def parseToActions(str: Seq[String]): Seq[Action] = {
     val n = str(0).toInt
-    val action: Action = parseToAction(str.tail)
-    (1 to n).map(_ => action)
+    if (n == 0) Seq()
+    else {
+      val action: Action = parseToAction(str.tail)
+      (1 to n).map(_ => action)
+    }
   }
 }
 
