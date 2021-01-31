@@ -4,7 +4,7 @@ plugins {
     id "com.github.maiflai.scalatest" version "0.30"
 }
 
-group 'sahaj.assignment'
+group 'CaromBoard'
 version '1.0-SNAPSHOT'
 
 repositories {
