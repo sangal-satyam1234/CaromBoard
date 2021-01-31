@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'scala'
+    id "com.github.maiflai.scalatest" version "0.30"
+}
+
+group 'sahaj.assignment'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+jar {
+    manifest {
+        attributes('Main-Class': 'com.game.cleanStrike.Driver')
+    }
+    // Include the classpath from the dependencies
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+            // This help solve the issue with jar lunch
+            {
+                exclude "META-INF/*.SF"
+                exclude "META-INF/*.DSA"
+                exclude "META-INF/*.RSA"
+            }
+}
+
+dependencies {
+
+    implementation 'org.scala-lang:scala-library:2.13.3'
+    implementation 'com.typesafe.akka:akka-actor_2.13:2.6.9'
+    implementation 'ch.qos.logback:logback-classic:1.3.0-alpha5'
+    implementation 'args4j:args4j:2.33'
+    testImplementation 'org.scalatest:scalatest_2.13:3.2.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.7.7'
+    testCompile 'org.scalatest:scalatest_2.13:3.2.0'
+    testRuntime 'com.vladsch.flexmark:flexmark-all:0.35.10'
+}
+
+test {
+    useJUnitPlatform()
+}
